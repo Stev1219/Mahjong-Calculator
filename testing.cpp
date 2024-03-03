@@ -1,6 +1,7 @@
 #include "Tiles.h"
 
 #include <iostream>
+#include <array>
 
 using namespace TileInfo;
 using namespace std;
