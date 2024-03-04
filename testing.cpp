@@ -3,25 +3,30 @@
 #include <iostream>
 
 #include <array>
+#include <vector>
 
 using namespace TileInfo;
-using namespace std;
 
 
-bool IsChow(Tile array[], Color coloryes)
+bool IsChow(std::vector<Tile> tiles, Color coloryes)
 {
+    int n;
+    n= tiles.size();
+
+    if (n==3)
+    {
     int i=0;
     bool j=true;
     bool k=true;
     for (i=0; i<3; i++)
     {
-        j=array[i].color==coloryes;
+        j=tiles[i].color==coloryes;
     }
     if (j==true)
     {
         for (i=0; i<2; i++)
         {
-            k=(array[i].number + 1)==array[i+1].number;
+            k=(tiles[i].number + 1)==tiles[i+1].number;
         }
         return k;
     }
@@ -29,22 +34,29 @@ bool IsChow(Tile array[], Color coloryes)
     {
         return j;
     }
+    }
+    else {return false;}
 }
 
-bool IsPung(Tile array[], Color coloryes)
+bool IsPung(std::vector<Tile> tiles, Color coloryes)
 { 
+    int n;
+    n= tiles.size();
+
+    if (n==3)
+    {
     int i=0;
     bool j=true;
     bool k=true;
     for (i=0; i<3; i++)
     {
-        j=array[i].color==coloryes;
+        j=tiles[i].color==coloryes;
     }
     if (j==true)
     {
         for (i=0; i<2; i++)
         {
-            k=(array[i].number)==array[i+1].number;
+            k=(tiles[i].number)==tiles[i+1].number;
         }
         return k;
     }
@@ -52,23 +64,29 @@ bool IsPung(Tile array[], Color coloryes)
     {
         return j;
     }
-    
+    }
+    else {return false;}
 }
 
-bool IsKong(Tile array[], Color coloryes)
+bool IsKong(std::vector<Tile> tiles, Color coloryes)
 {
+    int n;
+    n= tiles.size();
+
+    if (n==4)
+    {
     int i=0;
     bool j=true;
     bool k=true;
     for (i=0; i<4; i++)
     {
-        j=array[i].color==coloryes;
+        j=tiles[i].color==coloryes;
     }
     if (j==true)
     {
         for (i=0; i<3; i++)
         {
-            k=(array[i].number)==array[i+1].number;
+            k=(tiles[i].number)==tiles[i+1].number;
         }
         return k;
     }
@@ -76,45 +94,39 @@ bool IsKong(Tile array[], Color coloryes)
     {
         return j;
     }
+    }
+    else {return false;}
 }
 
- int Tilearray (Tile arr[])
+ int Tilearray (std::vector<Tile> tiles)
  {
     int n;
-    int i=sizeof(*arr);
-    arr++;
-    i=i+sizeof(*arr);
-    arr++;
-    i=i+sizeof(*arr);
-    arr++;
-    i=i+sizeof(*arr);
-    n=i/sizeof(arr[0]);
+    n= tiles.size();
     return n;
  }
 
 int main ()
 {
     
-    Tile tile1 (Character3);
-    Tile tile2 (Character3);
+    Tile tile1 (Character1);
+    Tile tile2 (Character2);
     Tile tile3 (Character3);
-    Tile tile4 (Character3);
+    Tile tile4 (Character4);
 
-    Tile arr[]={tile1, tile2, tile3};
+    std::vector<Tile> vec = {tile1, tile2, tile3, tile4};
 
-    int n= sizeof(arr)/sizeof(arr[0]);
+    bool i= IsChow(vec, Color::Character);
 
-    cout << n << "\n";
+    std::cout << "Is it a Chow?"<< i << "\n";
 
-    //bool j= IsPung(arr, Color::Character);
+    
+    bool j= IsPung(vec, Color::Character);
 
-    int j= Tilearray (arr);
+    std::cout <<"Is it a Pung?"<< j<<"\n";
 
-    cout << j<<"\n";
+    bool k= IsKong(vec, Color::Character);
 
-    bool k= IsKong(arr, Color::Character);
-
-    cout <<k;
+    std::cout <<"Is it a Kong?"<<k;
 
     return 0; 
 }
