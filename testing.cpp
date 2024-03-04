@@ -1,6 +1,7 @@
 #include "Tiles.h"
 
 #include <iostream>
+
 #include <array>
 
 using namespace TileInfo;
@@ -9,9 +10,6 @@ using namespace std;
 
 bool IsChow(Tile array[], Color coloryes)
 {
-    int n= sizeof(array) / sizeof (array[0]);
-    if (n=3)
-    {
     int i=0;
     bool j=true;
     bool k=true;
@@ -31,18 +29,10 @@ bool IsChow(Tile array[], Color coloryes)
     {
         return j;
     }
-    }
-    else
-    {
-        return false;
-    }
 }
 
 bool IsPung(Tile array[], Color coloryes)
-{
-    int n= sizeof (array)/ sizeof (array[0]);
-    if (n=3)
-    {    
+{ 
     int i=0;
     bool j=true;
     bool k=true;
@@ -62,11 +52,7 @@ bool IsPung(Tile array[], Color coloryes)
     {
         return j;
     }
-    }
-    else
-    {
-        return false;
-    }
+    
 }
 
 bool IsKong(Tile array[], Color coloryes)
@@ -92,23 +78,37 @@ bool IsKong(Tile array[], Color coloryes)
     }
 }
 
-
+ int Tilearray (Tile arr[])
+ {
+    int n;
+    int i=sizeof(*arr);
+    arr++;
+    i=i+sizeof(*arr);
+    arr++;
+    i=i+sizeof(*arr);
+    arr++;
+    i=i+sizeof(*arr);
+    n=i/sizeof(arr[0]);
+    return n;
+ }
 
 int main ()
 {
-    bool j;
+    
     Tile tile1 (Character3);
     Tile tile2 (Character3);
     Tile tile3 (Character3);
     Tile tile4 (Character3);
 
-    Tile arr[]={tile1, tile2, tile3, tile4};
+    Tile arr[]={tile1, tile2, tile3};
 
     int n= sizeof(arr)/sizeof(arr[0]);
 
     cout << n << "\n";
 
-    j= IsPung(arr, Color::Character);
+    //bool j= IsPung(arr, Color::Character);
+
+    int j= Tilearray (arr);
 
     cout << j<<"\n";
 
