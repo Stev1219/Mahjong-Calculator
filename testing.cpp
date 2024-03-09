@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include <array>
 #include <vector>
 
 using namespace TileInfo;
@@ -345,6 +344,234 @@ bool Hand18(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     return total;
 }
 
+bool Hand19(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    bool a=(!IsKong(set1,set1[0].color))&&(!IsKong(set2,set2[0].color))&&(!IsKong(set3, set3[0].color))&&(!IsKong(set4,set4[0].color));
+
+    if (a==true)
+    {
+        int c1=0, c2=0, c3=0, c4=0, c5=0, c6=0, c7=0, c8=0, c9=0;
+        int d1=0, d2=0, d3=0, d4=0, d5=0, d6=0, d7=0, d8=0, d9=0;
+        int b1=0, b2=0, b3=0, b4=0, b5=0, b6=0, b7=0, b8=0, b9=0;
+        int h1=0, h2=0, h3=0, h4=0, h5=0, h6=0, h7=0;
+        std::vector <Tile> all={set1[0],set1[1],set1[2],set2[0],set2[1],set2[2],set3[0],set3[1],set3[2],set4[0],set4[1],set4[2],pair[0],pair[1]};
+        for (int i=0; i<13; i++)
+        {
+            if (all[i].color==Color::Character)
+            {
+                if (all[i].number==1)
+                {
+                    c1++;
+                }
+                else if (all[i].number==2)
+                {
+                    c2++;
+                }
+                else if (all[i].number==3)
+                {
+                    c3++;
+                }
+                else if (all[i].number==4)
+                {
+                    c4++;
+                }
+                else if (all[i].number==5)
+                {
+                    c5++;
+                }
+                else if (all[i].number==6)
+                {
+                    c6++;
+                }
+                else if (all[i].number==7)
+                {
+                    c7++;
+                }
+                else if (all[i].number==8)
+                {
+                    c8++;
+                }
+                else if (all[i].number==9)
+                {
+                    c9++;
+                }
+            }
+            else if (all[i].color==Color::Circle)
+            {
+                if (all[i].number==1)
+                {
+                    d1++;
+                }
+                else if (all[i].number==2)
+                {
+                    d2++;
+                }
+                else if (all[i].number==3)
+                {
+                    d3++;
+                }
+                else if (all[i].number==4)
+                {
+                    d4++;
+                }
+                else if (all[i].number==5)
+                {
+                    d5++;
+                }
+                else if (all[i].number==6)
+                {
+                    d6++;
+                }
+                else if (all[i].number==7)
+                {
+                    d7++;
+                }
+                else if (all[i].number==8)
+                {
+                    d8++;
+                }
+                else if (all[i].number==9)
+                {
+                    d9++;
+                }
+            }
+            else if (all[i].color==Color::Bamboo)
+            {
+                if (all[i].number==1)
+                {
+                    b1++;
+                }
+                else if (all[i].number==2)
+                {
+                    b2++;
+                }
+                else if (all[i].number==3)
+                {
+                    b3++;
+                }
+                else if (all[i].number==4)
+                {
+                    b4++;
+                }
+                else if (all[i].number==5)
+                {
+                    b5++;
+                }
+                else if (all[i].number==6)
+                {
+                    b6++;
+                }
+                else if (all[i].number==7)
+                {
+                    b7++;
+                }
+                else if (all[i].number==8)
+                {
+                    b8++;
+                }
+                else if (all[i].number==9)
+                {
+                    b9++;
+                }
+            }
+            else
+            {
+                if (all[i].wind==Wind::East)
+                {
+                    h1++;
+                }
+                else if (all[i].wind==Wind::West)
+                {
+                    h2++;
+                }
+                else if (all[i].wind==Wind::North)
+                {
+                    h3++;
+                }
+                else if (all[i].wind==Wind::South)
+                {
+                    h4++;
+                }
+                else if (all[i].dragon==Dragon::Green)
+                {
+                    h5++;
+                }
+                else if (all[i].dragon==Dragon::White)
+                {
+                    h6++;
+                }
+                else if (all[i].dragon==Dragon::Red)
+                {
+                    h7++;
+                }
+            }
+        }
+        std::vector<int> countall={c1, c2, c3, c4, c5, c6, c7, c8, c9, d1, d2, d3, d4, d5, d6, d7, d8, d9, b1, b2, b3, b4, b5, b6, b7, b8, b9, h1, h2, h3, h4, h5, h6, h7};
+        bool is4=false;
+        for (int j=0; j<34; j++)
+        {
+            if (countall[j]==4)
+            {
+                is4=true;
+                break;
+            }
+        }
+        return is4;
+    }
+    else
+    {
+        return a;
+    }
+}
+
+bool Hand20 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    bool a=(set1[0].number==set2[0].number) && (set1[0].color!=set2[0].color) && IsPung(set1, set1[0].color) && IsPung(set2,set2[0].color);
+    bool b=(set1[0].number==set2[0].number) && (set1[0].color!=set2[0].color) && IsKong(set1, set1[0].color) && IsKong(set2,set2[0].color);
+    
+    bool c=(set1[0].number==set3[0].number) && (set1[0].color!=set3[0].color) && IsPung(set1, set1[0].color) && IsPung(set3,set3[0].color);
+    bool d=(set1[0].number==set3[0].number) && (set1[0].color!=set3[0].color) && IsKong(set1, set1[0].color) && IsKong(set3,set3[0].color);
+    
+    bool e=(set1[0].number==set4[0].number) && (set1[0].color!=set4[0].color) && IsPung(set1, set1[0].color) && IsPung(set4,set4[0].color);
+    bool f=(set1[0].number==set4[0].number) && (set1[0].color!=set4[0].color) && IsKong(set1, set1[0].color) && IsKong(set4,set4[0].color);
+    
+    bool g=(set2[0].number==set3[0].number) && (set2[0].color!=set3[0].color) && IsPung(set2, set2[0].color) && IsPung(set3,set3[0].color);
+    bool h=(set2[0].number==set3[0].number) && (set2[0].color!=set3[0].color) && IsKong(set2, set2[0].color) && IsKong(set3,set3[0].color);
+    
+    bool i=(set2[0].number==set4[0].number) && (set2[0].color!=set4[0].color) && IsPung(set2, set2[0].color) && IsPung(set4,set4[0].color);
+    bool j=(set2[0].number==set4[0].number) && (set2[0].color!=set4[0].color) && IsKong(set2, set2[0].color) && IsKong(set4,set4[0].color);
+
+    bool k=(set3[0].number==set4[0].number) && (set3[0].color!=set4[0].color) && IsPung(set3, set3[0].color) && IsPung(set4,set4[0].color);
+    bool l=(set3[0].number==set4[0].number) && (set3[0].color!=set4[0].color) && IsKong(set3, set3[0].color) && IsKong(set4,set4[0].color);
+
+    bool total= a||b||c||d||e||f||g||h||i||j||k||l;
+    return total;
+}
+
+bool Hand21(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4)
+{
+    bool a=IsPung(set1, set1[0].color) && IsPung(set2,set2[0].color)&&con1&&con2;
+    bool b=IsKong(set1, set1[0].color) && IsKong(set2,set2[0].color)&&con1&&con2;
+    
+    bool c=IsPung(set1, set1[0].color) && IsPung(set3,set3[0].color)&&con1&&con3;
+    bool d=IsKong(set1, set1[0].color) && IsKong(set3,set3[0].color)&&con1&&con3;
+    
+    bool e=IsPung(set1, set1[0].color) && IsPung(set4,set4[0].color)&&con1&&con4;
+    bool f=IsKong(set1, set1[0].color) && IsKong(set4,set4[0].color)&&con1&&con4;
+    
+    bool g=IsPung(set2, set2[0].color) && IsPung(set3,set3[0].color)&&con2&&con3;
+    bool h=IsKong(set2, set2[0].color) && IsKong(set3,set3[0].color)&&con2&&con3;
+    
+    bool i=IsPung(set2, set2[0].color) && IsPung(set4,set4[0].color)&&con2&&con4;
+    bool j=IsKong(set2, set2[0].color) && IsKong(set4,set4[0].color)&&con2&&con4;
+
+    bool k=IsPung(set3, set3[0].color) && IsPung(set4,set4[0].color)&&con3&&con4;
+    bool l=IsKong(set3, set3[0].color) && IsKong(set4,set4[0].color)&&con3&&con4;
+
+    bool total= a||c||e||g||i||k;
+    return total;
+}
+
 int main ()
 {
     Wind seat;
@@ -352,11 +579,11 @@ int main ()
     prevail=Wind::East;
     seat=Wind::East;
     
-    Tile set1t1 (Bamboo4), set1t2 (Bamboo5), set1t3 (Bamboo6), set1t4 (Bamboo7);
+    Tile set1t1 (Bamboo4), set1t2 (Bamboo4), set1t3 (Bamboo4), set1t4 (Bamboo7);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
     bool con1=true;
 
-    Tile set2t1 (Character1), set2t2 (Character2), set2t3 (Character3), set2t4 (Character1);
+    Tile set2t1 (Character2), set2t2 (Character2), set2t3 (Character2), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
@@ -365,10 +592,10 @@ int main ()
     bool con3=true;
     
     Tile set4t1 (WindEast), set4t2 (WindEast), set4t3 (WindEast), set4t4 (WindEast);
-    std::vector<Tile> vec4 = {set4t1, set4t2, set4t3, set4t4};
+    std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
-    Tile pair_t1 (Circle1), pair_t2 (Circle1);
+    Tile pair_t1 (Bamboo3), pair_t2 (Bamboo3);
     std::vector<Tile> pair = {pair_t1, pair_t2};
     bool conp=true;
 
@@ -414,7 +641,14 @@ int main ()
     bool h18=Hand18(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand18: All Chows?"<<h18<<"\n";
 
-    
+    bool h19=Hand19(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand19: Tile Hog?"<<h19<<"\n";
+
+    bool h20=Hand20(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand20: Double Pung?"<<h20<<"\n";
+
+    bool h21=Hand21(vec1, con1, vec2, con2, vec3, con3, vec4, con4);
+    std::cout<<"Hand21: Two Concealed Pungs?"<<h21<<"\n";
 
     return 0; 
 }
