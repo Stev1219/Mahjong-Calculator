@@ -320,6 +320,31 @@ bool Hand16 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile
     return total;
 }
 
+bool Hand17(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4,  std::vector <Tile> pair, bool conp)
+{
+    bool a=(~(IsKong(set1, set1[0].color)))&&con1;
+    bool b=(~(IsKong(set2, set2[0].color)))&&con2;
+    bool c=(~(IsKong(set3, set3[0].color)))&&con3;
+    bool d=(~(IsKong(set4, set4[0].color)))&&con4;
+    bool e=conp;
+
+    bool total=a||b||c||d||e;
+
+    return total;
+}
+
+bool Hand18(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    bool a=IsChow(set1, set1[0].color)&&(set1[0].color!=Color::None);
+    bool b=IsChow(set2, set2[0].color)&&(set2[0].color!=Color::None);
+    bool c=IsChow(set3, set3[0].color)&&(set3[0].color!=Color::None);
+    bool d=IsChow(set4, set4[0].color)&&(set4[0].color!=Color::None);
+    bool e=pair[0].color!=Color::None;
+
+    bool total=a&&b&&c&&d&&e;
+    return total;
+}
+
 int main ()
 {
     Wind seat;
@@ -329,18 +354,23 @@ int main ()
     
     Tile set1t1 (Bamboo4), set1t2 (Bamboo5), set1t3 (Bamboo6), set1t4 (Bamboo7);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
+    bool con1=true;
 
     Tile set2t1 (Character1), set2t2 (Character2), set2t3 (Character3), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
+    bool con2=true;
 
     Tile set3t1 (Character2), set3t2 (Character3), set3t3 (Character4), set3t4 (Character5);
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
+    bool con3=true;
     
     Tile set4t1 (WindEast), set4t2 (WindEast), set4t3 (WindEast), set4t4 (WindEast);
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3, set4t4};
+    bool con4=true;
     
     Tile pair_t1 (Circle1), pair_t2 (Circle1);
     std::vector<Tile> pair = {pair_t1, pair_t2};
+    bool conp=true;
 
     bool h01=Hand01(vec1, vec2, vec3, vec4);
     std::cout<<"Hand01: Pure Double Chow?"<<h01<<"\n";
@@ -377,6 +407,14 @@ int main ()
 
     bool h16=Hand16(vec1, vec2, vec3, vec4, seat, prevail);
     std::cout<<"Hand15: Pung of Seat?"<<h16<<"\n";
+
+    bool h17=Hand17(vec1, con1, vec2, con2, vec3, con3, vec4, con4, pair, conp);
+    std::cout<<"Hand17: Concealed Hand?"<<h17<<"\n";
+
+    bool h18=Hand18(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand18: All Chows?"<<h18<<"\n";
+
+    
 
     return 0; 
 }
