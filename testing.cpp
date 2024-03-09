@@ -287,23 +287,56 @@ bool Hand14(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     return total;
 }
 
+bool Hand15 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, Wind seat, Wind prevail)
+{
+    bool a= IsPung(set1, set1[0].color)&&(set1[0].wind==prevail);
+    bool b= IsPung(set2, set2[0].color)&&(set2[0].wind==prevail);
+    bool c= IsPung(set3, set3[0].color)&&(set3[0].wind==prevail);
+    bool d= IsPung(set4, set4[0].color)&&(set4[0].wind==prevail);
+
+    bool e= IsKong(set1, set1[0].color)&&(set1[0].wind==prevail);
+    bool f= IsKong(set2, set2[0].color)&&(set2[0].wind==prevail);
+    bool g= IsKong(set3, set3[0].color)&&(set3[0].wind==prevail);
+    bool h= IsKong(set4, set4[0].color)&&(set4[0].wind==prevail);
+
+    bool total=a||b||c||d||e||f||g||h;
+    return total;
+}
+
+bool Hand16 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, Wind seat, Wind prevail)
+{
+    bool a= IsPung(set1, set1[0].color)&&(set1[0].wind==seat);
+    bool b= IsPung(set2, set2[0].color)&&(set2[0].wind==seat);
+    bool c= IsPung(set3, set3[0].color)&&(set3[0].wind==seat);
+    bool d= IsPung(set4, set4[0].color)&&(set4[0].wind==seat);
+   
+    bool e= IsKong(set1, set1[0].color)&&(set1[0].wind==seat);
+    bool f= IsKong(set2, set2[0].color)&&(set2[0].wind==seat);
+    bool g= IsKong(set3, set3[0].color)&&(set3[0].wind==seat);
+    bool h= IsKong(set4, set4[0].color)&&(set4[0].wind==seat);
+
+    bool total=a||b||c||d||e||f||g||h;
+
+    return total;
+}
+
 int main ()
 {
     Wind seat;
     Wind prevail;
-    prevail=Wind::West;
-    seat=Wind::North;
+    prevail=Wind::East;
+    seat=Wind::East;
     
     Tile set1t1 (Bamboo4), set1t2 (Bamboo5), set1t3 (Bamboo6), set1t4 (Bamboo7);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
 
-    Tile set2t1 (Character1), set2t2 (Character1), set2t3 (Character1), set2t4 (Character1);
-    std::vector<Tile> vec2 = {set2t1, set2t2, set2t3, set2t4};
+    Tile set2t1 (Character1), set2t2 (Character2), set2t3 (Character3), set2t4 (Character1);
+    std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
 
     Tile set3t1 (Character2), set3t2 (Character3), set3t3 (Character4), set3t4 (Character5);
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     
-    Tile set4t1 (Bamboo1), set4t2 (Bamboo1), set4t3 (Bamboo1), set4t4 (Bamboo1);
+    Tile set4t1 (WindEast), set4t2 (WindEast), set4t3 (WindEast), set4t4 (WindEast);
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3, set4t4};
     
     Tile pair_t1 (Circle1), pair_t2 (Circle1);
@@ -338,6 +371,12 @@ int main ()
     
     bool h14=Hand14(vec1, vec2, vec3, vec4);
     std::cout<<"Hand14: Dragon Pung?"<<h14<<"\n";
+
+    bool h15=Hand15(vec1, vec2, vec3, vec4, seat, prevail);
+    std::cout<<"Hand15: Pung of Prevalent?"<<h15<<"\n";
+
+    bool h16=Hand16(vec1, vec2, vec3, vec4, seat, prevail);
+    std::cout<<"Hand15: Pung of Seat?"<<h16<<"\n";
 
     return 0; 
 }
