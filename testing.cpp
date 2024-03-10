@@ -319,17 +319,19 @@ bool Hand16 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile
     return total;
 }
 
-bool Hand17(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4,  std::vector <Tile> pair, bool conp)
+bool Hand17(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4,  std::vector <Tile> pair, bool conp, bool selfdraw)
 {
-    bool a=(~(IsKong(set1, set1[0].color)))&&con1;
-    bool b=(~(IsKong(set2, set2[0].color)))&&con2;
-    bool c=(~(IsKong(set3, set3[0].color)))&&con3;
-    bool d=(~(IsKong(set4, set4[0].color)))&&con4;
+    bool a=(!(IsKong(set1, set1[0].color)))&&con1;
+    bool b=(!(IsKong(set2, set2[0].color)))&&con2;
+    bool c=(!(IsKong(set3, set3[0].color)))&&con3;
+    bool d=(!(IsKong(set4, set4[0].color)))&&con4;
     bool e=conp;
 
-    bool total=a||b||c||d||e;
+    bool total=a&&b&&c&&d&&e;
 
-    return total;
+    bool real=total&&(!selfdraw);
+
+    return real;
 }
 
 bool Hand18(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
@@ -595,14 +597,77 @@ bool Hand23(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     return total;
 }
 
+bool Hand24(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    bool a=(set1[0].color!=Color::None)&&(set2[0].color!=Color::None)&&(set3[0].color!=Color::None)&&(set4[0].color!=Color::None)&&(pair[0].color!=Color::None);
+    bool b=(set1[0].number!=1)&&(set2[0].number!=1)&&(set3[0].number!=1)&&(set4[0].number!=1)&&(pair[0].number!=1);
+    bool c=(set1[2].number!=9)&&(set2[2].number!=9)&&(set3[2].number!=9)&&(set4[2].number!=9)&&(pair[2].number!=9);
+    bool d=(set1[3].number!=9)&&(set2[3].number!=9)&&(set3[3].number!=9)&&(set4[3].number!=9)&&(pair[3].number!=9);
+
+    bool total=a&&b&&(c||d);
+    bool result = !total;
+    return result;    
+}
+
+bool Hand25(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4,  std::vector <Tile> pair, bool conp, bool selfdraw)
+{
+    bool a=con1;
+    bool b=con2;
+    bool c=con3;
+    bool d=con4;
+    bool e=conp;
+
+    bool total=a&&b&&c&&d&&e;
+
+    bool real=total&&(selfdraw);
+
+    return real;
+}
+
+bool Hand26 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    bool a=IsKong(set1, set1[0].color) && IsKong(set2,set2[0].color);
+    bool b=IsKong(set1, set1[0].color) && IsKong(set3,set3[0].color);
+    bool c=IsKong(set1, set1[0].color) && IsKong(set4,set4[0].color);
+    bool d=IsKong(set2, set2[0].color) && IsKong(set3,set3[0].color);
+    bool e=IsKong(set2, set2[0].color) && IsKong(set4,set4[0].color);
+    bool f=IsKong(set3, set3[0].color) && IsKong(set4,set4[0].color);
+
+    bool total= a||b||c||d||e||f;
+    return total;
+}
+
+bool Hand28(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    bool a=((IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color)));
+    bool b=((IsPung(set2,set2[0].color)||IsKong(set2,set2[0].color)));
+    bool c=((IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color)));
+    bool d=((IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color)));
+
+    bool total=a&&b&&c&&d;
+    return total;
+}
+
+bool Hand29(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    bool a=(set1[0].color==Color::Character||set1[0].color==Color::None)&&(set2[0].color==Color::Character||set2[0].color==Color::None)&&(set3[0].color==Color::Character||set3[0].color==Color::None)&&(set4[0].color==Color::Character||set4[0].color==Color::None)&&(pair[0].color==Color::Character||pair[0].color!=Color::None);
+    bool b=(set1[0].color==Color::Circle||set1[0].color==Color::None)&&(set2[0].color==Color::Circle||set2[0].color==Color::None)&&(set3[0].color==Color::Circle||set3[0].color==Color::None)&&(set4[0].color==Color::Circle||set4[0].color==Color::None)&&(pair[0].color==Color::Circle||pair[0].color==Color::None);
+    bool c=(set1[0].color==Color::Bamboo||set1[0].color==Color::None)&&(set2[0].color==Color::Bamboo||set2[0].color==Color::None)&&(set3[0].color==Color::Bamboo||set3[0].color==Color::None)&&(set4[0].color==Color::Bamboo||set4[0].color==Color::None)&&(pair[0].color==Color::Bamboo||pair[0].color==Color::None);
+    
+    bool total=a||b||c;
+    return total;
+}
+
 int main ()
 {
     Wind seat;
     Wind prevail;
     prevail=Wind::East;
     seat=Wind::East;
+
+    bool selfdraw=false; //won by selfdraw is true, discard pile false
     
-    Tile set1t1 (Bamboo4), set1t2 (Bamboo4), set1t3 (Bamboo4), set1t4 (Bamboo7);
+    Tile set1t1 (Bamboo4), set1t2 (Bamboo4), set1t3 (Bamboo4), set1t4 (Bamboo4);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
     bool con1=true;
 
@@ -645,7 +710,7 @@ int main ()
 
     bool h08=Hand08(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand08: No Honors?"<<h08<<"\n";
-
+ 
     //Hand09 and 10 add point to player if they self draw or drew flowers in the game
     //Skip 11-13
     
@@ -658,7 +723,7 @@ int main ()
     bool h16=Hand16(vec1, vec2, vec3, vec4, seat, prevail);
     std::cout<<"Hand15: Pung of Seat?"<<h16<<"\n";
 
-    bool h17=Hand17(vec1, con1, vec2, con2, vec3, con3, vec4, con4, pair, conp);
+    bool h17=Hand17(vec1, con1, vec2, con2, vec3, con3, vec4, con4, pair, conp, selfdraw);
     std::cout<<"Hand17: Concealed Hand?"<<h17<<"\n";
 
     bool h18=Hand18(vec1, vec2, vec3, vec4, pair);
@@ -678,6 +743,23 @@ int main ()
 
     bool h23=Hand23(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand23: All simples?"<<h23<<"\n";
+
+    bool h24=Hand24(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand24: Outside Hand?"<<h24<<"\n";
+
+    bool h25=Hand25(vec1, con1, vec2, con2, vec3, con3, vec4, con4, pair, conp, selfdraw);
+    std::cout<<"Hand25: Fully Concealed Hand?"<<h25<<"\n";
+
+    bool h26=Hand26(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand26: Two Melded Kongs?"<<h26<<"\n";
+
+    //skip 27 until understand last of its kind
+
+    bool h28=Hand28(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand28: All Pungs?"<<h28<<"\n";
+
+    bool h29=Hand29(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand29: Half Flush?"<<h29<<"\n";
 
     return 0; 
 }
