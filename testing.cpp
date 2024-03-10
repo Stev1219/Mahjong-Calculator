@@ -572,6 +572,29 @@ bool Hand21(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool co
     return total;
 }
 
+bool Hand22(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4)
+{
+    bool a=IsKong(set1, set1[0].color)&&con1;
+    bool b=IsKong(set2, set2[0].color)&&con2;
+    bool c=IsKong(set3, set3[0].color)&&con3;
+    bool d=IsKong(set4, set4[0].color)&&con4;
+
+    bool total=a||b||c||d;
+    return total;
+}
+
+bool Hand23(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    bool a=(set1[0].color!=Color::None)&&(set2[0].color!=Color::None)&&(set3[0].color!=Color::None)&&(set4[0].color!=Color::None)&&(pair[0].color!=Color::None);
+    bool b=(set1[0].number!=1)&&(set2[0].number!=1)&&(set3[0].number!=1)&&(set4[0].number!=1)&&(pair[0].number!=1);
+    bool c=(set1[2].number!=9)&&(set2[2].number!=9)&&(set3[2].number!=9)&&(set4[2].number!=9)&&(pair[2].number!=9);
+    bool d=(set1[3].number!=9)&&(set2[3].number!=9)&&(set3[3].number!=9)&&(set4[3].number!=9)&&(pair[3].number!=9);
+
+    bool total=a&&b&&(c||d);
+
+    return total;
+}
+
 int main ()
 {
     Wind seat;
@@ -591,7 +614,7 @@ int main ()
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     bool con3=true;
     
-    Tile set4t1 (WindEast), set4t2 (WindEast), set4t3 (WindEast), set4t4 (WindEast);
+    Tile set4t1 (Circle2), set4t2 (Circle2), set4t3 (Circle2), set4t4 (WindEast);
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
@@ -649,6 +672,12 @@ int main ()
 
     bool h21=Hand21(vec1, con1, vec2, con2, vec3, con3, vec4, con4);
     std::cout<<"Hand21: Two Concealed Pungs?"<<h21<<"\n";
+
+    bool h22=Hand22(vec1, con1, vec2, con2, vec3, con3, vec4, con4);
+    std::cout<<"Hand22: Concealed Kong?"<<h22<<"\n";
+
+    bool h23=Hand23(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand23: All simples?"<<h23<<"\n";
 
     return 0; 
 }
