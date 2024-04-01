@@ -658,6 +658,115 @@ bool Hand29(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     return total;
 }
 
+bool Hand30(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    bool a=IsChow(set1,set1[0].color);
+    bool b=IsChow(set2,set2[0].color);
+    bool c=IsChow(set3,set3[0].color);
+    bool d=IsChow(set4,set4[0].color);
+
+    bool combo1=0, combo2=0, combo3=0, combo4=0;
+    bool resultc, total=1;
+
+    if ((a==true)&&(b==true)&&(c==true))
+    {
+        int n1=set1[0].number;
+        int n2=set2[0].number;
+        int n3=set3[0].number;
+        if (n1 > n3) {std::swap(n1, n3);}
+        if (n1 > n2) {std::swap(n1, n2);}
+        if (n2 > n3) {std::swap(n2, n3);}
+
+        if ((n1==(n2-1))&&(n2==(n3-1)))
+        {
+            combo1=true;
+            if ((set1[0].color!=set2[0].color)&&(set1[0].color!=set3[0].color)&&(set2[0].color!=set3[0].color))
+            {
+                combo1=true;
+            }
+        }
+
+        else
+        {
+            combo1=false;
+        }
+
+    }
+    if ((a==true)&&(c==true)&&(d==true))
+    {   
+        int n1=set1[0].number;
+        int n2=set3[0].number;
+        int n3=set4[0].number;
+        if (n1 > n3) {std::swap(n1, n3);}
+        if (n1 > n2) {std::swap(n1, n2);}
+        if (n2 > n3) {std::swap(n2, n3);}
+
+        if ((n1==(n2-1))&&(n2==(n3-1)))
+        {
+            if ((set1[0].color!=set3[0].color)&&(set1[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color))
+            {
+                combo2=true;
+            }
+        }
+
+        else
+        {
+            combo2=false;
+        }
+    }
+    if ((a==true)&&(b==true)&&(d==true))
+    {   
+        int n1=set1[0].number;
+        int n2=set2[0].number;
+        int n3=set4[0].number;
+        if (n1 > n3) {std::swap(n1, n3);}
+        if (n1 > n2) {std::swap(n1, n2);}
+        if (n2 > n3) {std::swap(n2, n3);}
+
+        
+        if ((n1==(n2-1))&&(n2==(n3-1)))
+        {
+            if ((set1[0].color!=set2[0].color)&&(set1[0].color!=set4[0].color)&&(set2[0].color!=set4[0].color))
+            {
+                combo3=true;
+            }
+        }
+
+        else
+        {
+            combo3=false;
+        }
+    }
+    if ((b==true)&&(c==true)&&(d==true))
+    {   
+        int n1=set2[0].number;
+        int n2=set3[0].number;
+        int n3=set4[0].number;
+        if (n1 > n3) {std::swap(n1, n3);}
+        if (n1 > n2) {std::swap(n1, n2);}
+        if (n2 > n3) {std::swap(n2, n3);}
+
+        if ((n1==(n2-1))&&(n2==(n3-1)))
+        {
+            if ((set2[0].color!=set3[0].color)&&(set2[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color))
+            {
+                combo4=true;
+            }
+        }
+
+        else
+        {
+            combo4=false;
+        }
+    }
+    else
+    {
+        total=false;
+    }
+    resultc=combo1||combo2||combo3||combo4;
+    return resultc;
+}
+
 int main ()
 {
     Wind seat;
@@ -667,19 +776,19 @@ int main ()
 
     bool selfdraw=false; //won by selfdraw is true, discard pile false
     
-    Tile set1t1 (Bamboo4), set1t2 (Bamboo4), set1t3 (Bamboo4), set1t4 (Bamboo4);
+    Tile set1t1 (Bamboo3), set1t2 (Bamboo4), set1t3 (Bamboo5), set1t4 (Bamboo4);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
     bool con1=true;
 
-    Tile set2t1 (Character2), set2t2 (Character2), set2t3 (Character2), set2t4 (Character1);
+    Tile set2t1 (Character2), set2t2 (Character3), set2t3 (Character4), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
-    Tile set3t1 (Character2), set3t2 (Character3), set3t3 (Character4), set3t4 (Character5);
+    Tile set3t1 (Character5), set3t2 (Character5), set3t3 (Character5), set3t4 (Character5);
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     bool con3=true;
     
-    Tile set4t1 (Circle2), set4t2 (Circle2), set4t3 (Circle2), set4t4 (WindEast);
+    Tile set4t1 (Circle4), set4t2 (Circle5), set4t3 (Circle6), set4t4 (WindEast);
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
@@ -760,6 +869,9 @@ int main ()
 
     bool h29=Hand29(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand29: Half Flush?"<<h29<<"\n";
+
+    bool h30=Hand30(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand30: Mix Shifted Chow?"<<h30<<"\n";
 
     return 0; 
 }
