@@ -767,6 +767,35 @@ bool Hand30(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     return resultc;
 }
 
+bool Hand31(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    bool a=(set1[0].color!=set2[0].color);
+    bool b=(set1[0].color!=set3[0].color);
+    bool c=(set1[0].color!=set4[0].color);
+    bool d=(set1[0].color!=pair[0].color);
+    bool e=(set2[0].color!=set3[0].color);
+    bool f=(set2[0].color!=set4[0].color);
+    bool g=(set2[0].color!=pair[0].color);
+    bool h=(set3[0].color!=set4[0].color);
+    bool i=(set3[0].color!=pair[0].color);
+    bool j=(set4[0].color!=pair[0].color);
+
+    if (a==0) {a=(set1[0].wind!=set2[0].wind)&&(set1[0].dragon!=set2[0].dragon);}
+    if (b==0) {b=(set1[0].wind!=set3[0].wind)&&(set1[0].dragon!=set3[0].dragon);}
+    if (c==0) {c=(set1[0].wind!=set4[0].wind)&&(set1[0].dragon!=set4[0].dragon);}
+    if (d==0) {d=(set1[0].wind!=pair[0].wind)&&(set2[0].dragon!=pair[0].dragon);}
+    if (e==0) {e=(set2[0].wind!=set3[0].wind)&&(set2[0].dragon!=set3[0].dragon);}
+    if (f==0) {f=(set2[0].wind!=set4[0].wind)&&(set2[0].dragon!=set4[0].dragon);}
+    if (g==0) {g=(set2[0].wind!=pair[0].wind)&&(set2[0].dragon!=pair[0].dragon);}
+    if (h==0) {h=(set3[0].wind!=set4[0].wind)&&(set3[0].dragon!=set4[0].dragon);}
+    if (i==0) {i=(set3[0].wind!=pair[0].wind)&&(set3[0].dragon!=pair[0].dragon);}
+    if (j==0) {j=(set4[0].wind!=pair[0].wind)&&(set4[0].dragon!=pair[0].dragon);}
+
+    bool total=a&&b&&c&&d&&e&&f&&g&&h&&i&&j;
+    return total;
+}
+
+
 int main ()
 {
     Wind seat;
@@ -784,7 +813,7 @@ int main ()
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
-    Tile set3t1 (Character5), set3t2 (Character5), set3t3 (Character5), set3t4 (Character5);
+    Tile set3t1 (WindEast), set3t2 (WindEast), set3t3 (WindEast), set3t4 (Character5);
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     bool con3=true;
     
@@ -792,7 +821,7 @@ int main ()
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
-    Tile pair_t1 (Bamboo3), pair_t2 (Bamboo3);
+    Tile pair_t1 (WindNorth), pair_t2 (WindNorth);
     std::vector<Tile> pair = {pair_t1, pair_t2};
     bool conp=true;
 
@@ -872,6 +901,10 @@ int main ()
 
     bool h30=Hand30(vec1, vec2, vec3, vec4);
     std::cout<<"Hand30: Mix Shifted Chow?"<<h30<<"\n";
+
+    bool h31=Hand31(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand30: All Type?"<<h31<<"\n";
+
 
     return 0; 
 }
