@@ -795,6 +795,95 @@ bool Hand31(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     return total;
 }
 
+bool Hand33(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    bool a= ((set1[0].dragon!=Dragon::None)&&(set2[0].dragon!=Dragon::None)&&(IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color))&&(IsPung(set2,set2[0].color)||IsKong(set2,set2[0].color))&&(set1[0].dragon!=set2[0].dragon));
+    bool b= ((set1[0].dragon!=Dragon::None)&&(set3[0].dragon!=Dragon::None)&&(IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color))&&(IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color))&&(set1[0].dragon!=set3[0].dragon));
+    bool c= ((set1[0].dragon!=Dragon::None)&&(set4[0].dragon!=Dragon::None)&&(IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color))&&(IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&(set1[0].dragon!=set4[0].dragon));
+    bool d= ((set2[0].dragon!=Dragon::None)&&(set3[0].dragon!=Dragon::None)&&(IsPung(set2,set2[0].color)||IsKong(set2,set2[0].color))&&(IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color))&&(set2[0].dragon!=set3[0].dragon));
+    bool e= ((set2[0].dragon!=Dragon::None)&&(set4[0].dragon!=Dragon::None)&&(IsPung(set2,set2[0].color)||IsKong(set2,set2[0].color))&&(IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&(set2[0].dragon!=set4[0].dragon));
+    bool f= ((set3[0].dragon!=Dragon::None)&&(set4[0].dragon!=Dragon::None)&&(IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color))&&(IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&(set3[0].dragon!=set4[0].dragon));
+
+    bool total=a||b||c||d||e||f;
+    return total;
+}
+
+bool Hand34(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    //combo set1, set2, set3
+    int n1=set1[0].number;
+    int n2=set2[0].number;
+    int n3=set3[0].number;
+    if (n1 > n3) {std::swap(n1, n3);}
+    if (n1 > n2) {std::swap(n1, n2);}
+    if (n2 > n3) {std::swap(n2, n3);}
+
+    bool a1=((set1[0].color!=set2[0].color)&&(set1[0].color!=set3[0].color)&&(set2[0].color!=set3[0].color));
+    bool a2=((n1==1)&&(n2==4)&&(n3==7));
+    bool a=(IsChow(set1,set1[0].color)&&IsChow(set2,set2[0].color)&&IsChow(set3,set3[0].color)&&a1&&a2);
+
+    //combo set1, set2, set4
+    int m1=set1[0].number;
+    int m2=set2[0].number;
+    int m3=set4[0].number;
+    if (m1 > m3) {std::swap(m1, m3);}
+    if (m1 > m2) {std::swap(m1, m2);}
+    if (m2 > m3) {std::swap(m2, m3);}
+
+    bool b1=((set1[0].color!=set2[0].color)&&(set1[0].color!=set4[0].color)&&(set2[0].color!=set4[0].color));
+    bool b2=((m1==1)&&(m2==4)&&(m3==7));
+    bool b=(IsChow(set1,set1[0].color)&&IsChow(set2,set2[0].color)&&IsChow(set4,set4[0].color)&&b1&&b2);
+
+    //combo set1, set3, set4
+    int l1=set1[0].number;
+    int l2=set3[0].number;
+    int l3=set4[0].number;
+    if (l1 > l3) {std::swap(l1, l3);}
+    if (l1 > l2) {std::swap(l1, l2);}
+    if (l2 > l3) {std::swap(l2, l3);}
+
+    bool c1=((set1[0].color!=set3[0].color)&&(set1[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color));
+    bool c2=((l1==1)&&(l2==4)&&(l3==7));
+    bool c=(IsChow(set1,set1[0].color)&&IsChow(set3,set3[0].color)&&IsChow(set4,set4[0].color)&&c1&&c2);
+
+    //combo set2, set3, set4
+    int j1=set2[0].number;
+    int j2=set3[0].number;
+    int j3=set4[0].number;
+    if (j1 > j3) {std::swap(j1, j3);}
+    if (j1 > j2) {std::swap(j1, j2);}
+    if (j2 > j3) {std::swap(j2, j3);}
+
+    bool d1=((set2[0].color!=set3[0].color)&&(set2[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color));
+    bool d2=((j1==1)&&(j2==4)&&(j3==7));
+    bool d=(IsChow(set2,set2[0].color)&&IsChow(set3,set3[0].color)&&IsChow(set4,set4[0].color)&&d1&&d2);
+
+    bool total=a||b||c||d;
+    return total;
+}
+
+bool Hand35(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
+{
+    Tile ty1=Circle1;
+    Tile ty2=Circle2;
+    Tile ty3=Circle3;
+    Tile ty4=Circle4;
+    Tile ty5=Circle5;
+    Tile ty6=Circle8;
+    Tile ty7=Circle9;
+    Tile ty8=Bamboo2;
+    Tile ty9=Bamboo4;
+    Tile ty10=Bamboo5;
+    Tile ty11=Bamboo6;
+    Tile ty12=Bamboo8;
+    Tile ty13=Bamboo9;
+    Tile ty14=DragonWhite;
+
+    bool t1=((set1[0].color==ty1.color)&&(set1[0].number==ty1.number))||((set1[0].color==ty2.color)&&(set1[0].number==ty2.number))||((set1[0].color==ty3.color)&&(set1[0].number==ty3.number))||((set1[0].color==ty4.color)&&(set1[0].number==ty4.number))||((set1[0].color==ty5.color)&&(set1[0].number==ty5.number))||((set1[0].color==ty6.color)&&(set1[0].number==ty6.number))||((set1[0].color==ty7.color)&&(set1[0].number==ty7.number))||((set1[0].color==ty8.color)&&(set1[0].number==ty8.number))||((set1[0].color==ty9.color)&&(set1[0].number==ty9.number))||((set1[0].color==ty10.color)&&(set1[0].number==ty10.number))||((set1[0].color==ty11.color)&&(set1[0].number==ty11.number))||((set1[0].color==ty12.color)&&(set1[0].number==ty12.number))||((set1[0].color==ty13.color)&&(set1[0].number==ty13.number))||(set1[0].dragon==ty14.dragon);
+    //Do this for all numbers in the set and pair
+
+    return t1;
+}
 
 int main ()
 {
@@ -805,19 +894,19 @@ int main ()
 
     bool selfdraw=false; //won by selfdraw is true, discard pile false
     
-    Tile set1t1 (Bamboo3), set1t2 (Bamboo4), set1t3 (Bamboo5), set1t4 (Bamboo4);
+    Tile set1t1 (Bamboo4), set1t2 (Bamboo5), set1t3 (Bamboo6), set1t4 (Bamboo4);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
     bool con1=true;
 
-    Tile set2t1 (Character2), set2t2 (Character3), set2t3 (Character4), set2t4 (Character1);
+    Tile set2t1 (Circle2), set2t2 (Circle2), set2t3 (Circle2), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
-    Tile set3t1 (WindEast), set3t2 (WindEast), set3t3 (WindEast), set3t4 (Character5);
+    Tile set3t1 (Character7), set3t2 (Character8), set3t3 (Character9), set3t4 (Character5);
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     bool con3=true;
     
-    Tile set4t1 (Circle4), set4t2 (Circle5), set4t3 (Circle6), set4t4 (WindEast);
+    Tile set4t1 (Character1), set4t2 (Character2), set4t3 (Character3), set4t4 (WindEast);
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
@@ -905,6 +994,16 @@ int main ()
     bool h31=Hand31(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand30: All Type?"<<h31<<"\n";
 
+    //skip 32 until understand melded hand
+
+    bool h33=Hand33(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand33: Two Dragon Pung?"<<h33<<"\n";
+
+    bool h34=Hand34(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand34: Mixed Straight?"<<h34<<"\n";
+
+    bool h35=Hand35(vec1, vec2, vec3, vec4, pair);
+    std::cout<<"Hand35: Reversible Tiles?"<<h35<<"\n";
 
     return 0; 
 }
