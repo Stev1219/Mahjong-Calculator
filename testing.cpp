@@ -127,6 +127,17 @@ int Tilearray (std::vector<Tile> tiles)
     return n;
 }
 
+bool IsEqual(Tile sample, Tile check)
+{
+    bool a=(sample.number==check.number);
+    bool b=(sample.color==check.color);
+    bool c=(sample.wind==check.wind);
+    bool d=(sample.dragon==check.dragon);
+
+    bool total=a&&b&&c&&d;
+    return total;
+}
+
 bool Hand01 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
 {
     bool a=(set1[0].number==set2[0].number) && (set1[1].number==set2[1].number) && (set1[2].number==set2[2].number) && (set1[0].color==set2[0].color) && IsChow(set1, set1[0].color);
@@ -552,23 +563,12 @@ bool Hand20 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile
 
 bool Hand21(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4)
 {
-    bool a=IsPung(set1, set1[0].color) && IsPung(set2,set2[0].color)&&con1&&con2;
-    bool b=IsKong(set1, set1[0].color) && IsKong(set2,set2[0].color)&&con1&&con2;
-    
-    bool c=IsPung(set1, set1[0].color) && IsPung(set3,set3[0].color)&&con1&&con3;
-    bool d=IsKong(set1, set1[0].color) && IsKong(set3,set3[0].color)&&con1&&con3;
-    
-    bool e=IsPung(set1, set1[0].color) && IsPung(set4,set4[0].color)&&con1&&con4;
-    bool f=IsKong(set1, set1[0].color) && IsKong(set4,set4[0].color)&&con1&&con4;
-    
-    bool g=IsPung(set2, set2[0].color) && IsPung(set3,set3[0].color)&&con2&&con3;
-    bool h=IsKong(set2, set2[0].color) && IsKong(set3,set3[0].color)&&con2&&con3;
-    
-    bool i=IsPung(set2, set2[0].color) && IsPung(set4,set4[0].color)&&con2&&con4;
-    bool j=IsKong(set2, set2[0].color) && IsKong(set4,set4[0].color)&&con2&&con4;
-
-    bool k=IsPung(set3, set3[0].color) && IsPung(set4,set4[0].color)&&con3&&con4;
-    bool l=IsKong(set3, set3[0].color) && IsKong(set4,set4[0].color)&&con3&&con4;
+    bool a=(IsPung(set1, set1[0].color)||IsKong(set1, set1[0].color)) && (IsPung(set2,set2[0].color)||IsKong(set2,set2[0].color))&&con1&&con2;
+    bool c=(IsPung(set1, set1[0].color)||IsKong(set1, set1[0].color)) && (IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color))&&con1&&con3;
+    bool e=(IsPung(set1, set1[0].color)||IsKong(set1, set1[0].color)) && (IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&con1&&con4;
+    bool g=(IsPung(set2, set2[0].color)||IsKong(set2, set2[0].color)) && (IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color))&&con2&&con3;
+    bool i=(IsPung(set2, set2[0].color)||IsKong(set2, set2[0].color)) && (IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&con2&&con4;
+    bool k=(IsPung(set3, set3[0].color)||IsKong(set3, set3[0].color)) && (IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&con3&&con4;
 
     bool total= a||c||e||g||i||k;
     return total;
@@ -879,10 +879,116 @@ bool Hand35(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
     Tile ty13=Bamboo9;
     Tile ty14=DragonWhite;
 
-    bool t1=((set1[0].color==ty1.color)&&(set1[0].number==ty1.number))||((set1[0].color==ty2.color)&&(set1[0].number==ty2.number))||((set1[0].color==ty3.color)&&(set1[0].number==ty3.number))||((set1[0].color==ty4.color)&&(set1[0].number==ty4.number))||((set1[0].color==ty5.color)&&(set1[0].number==ty5.number))||((set1[0].color==ty6.color)&&(set1[0].number==ty6.number))||((set1[0].color==ty7.color)&&(set1[0].number==ty7.number))||((set1[0].color==ty8.color)&&(set1[0].number==ty8.number))||((set1[0].color==ty9.color)&&(set1[0].number==ty9.number))||((set1[0].color==ty10.color)&&(set1[0].number==ty10.number))||((set1[0].color==ty11.color)&&(set1[0].number==ty11.number))||((set1[0].color==ty12.color)&&(set1[0].number==ty12.number))||((set1[0].color==ty13.color)&&(set1[0].number==ty13.number))||(set1[0].dragon==ty14.dragon);
-    //Do this for all numbers in the set and pair
+    bool t1=IsEqual(set1[0],ty1)||IsEqual(set1[0],ty2)||IsEqual(set1[0],ty3)||IsEqual(set1[0],ty4)||IsEqual(set1[0],ty5)||IsEqual(set1[0],ty6)||IsEqual(set1[0],ty7)||IsEqual(set1[0],ty8)||IsEqual(set1[0],ty9)||IsEqual(set1[0],ty10)||IsEqual(set1[0],ty11)||IsEqual(set1[0],ty12)||IsEqual(set1[0],ty13)||IsEqual(set1[0],ty14);
+    bool t2=IsEqual(set1[1],ty1)||IsEqual(set1[1],ty2)||IsEqual(set1[1],ty3)||IsEqual(set1[1],ty4)||IsEqual(set1[1],ty5)||IsEqual(set1[1],ty6)||IsEqual(set1[1],ty7)||IsEqual(set1[1],ty8)||IsEqual(set1[1],ty9)||IsEqual(set1[1],ty10)||IsEqual(set1[1],ty11)||IsEqual(set1[1],ty12)||IsEqual(set1[1],ty13)||IsEqual(set1[1],ty14);
+    bool t3=IsEqual(set1[2],ty1)||IsEqual(set1[2],ty2)||IsEqual(set1[2],ty3)||IsEqual(set1[2],ty4)||IsEqual(set1[2],ty5)||IsEqual(set1[2],ty6)||IsEqual(set1[2],ty7)||IsEqual(set1[2],ty8)||IsEqual(set1[2],ty9)||IsEqual(set1[2],ty10)||IsEqual(set1[2],ty11)||IsEqual(set1[2],ty12)||IsEqual(set1[2],ty13)||IsEqual(set1[2],ty14);
+    bool t4;
+    if (Tilearray(set1)==4){t4=IsEqual(set1[3],ty1)||IsEqual(set1[3],ty2)||IsEqual(set1[3],ty3)||IsEqual(set1[3],ty4)||IsEqual(set1[3],ty5)||IsEqual(set1[3],ty6)||IsEqual(set1[3],ty7)||IsEqual(set1[3],ty8)||IsEqual(set1[3],ty9)||IsEqual(set1[3],ty10)||IsEqual(set1[3],ty11)||IsEqual(set1[3],ty12)||IsEqual(set1[3],ty13)||IsEqual(set1[3],ty14);}else{t4=true;}
 
-    return t1;
+    bool t5=IsEqual(set2[0],ty1)||IsEqual(set2[0],ty2)||IsEqual(set2[0],ty3)||IsEqual(set2[0],ty4)||IsEqual(set2[0],ty5)||IsEqual(set2[0],ty6)||IsEqual(set2[0],ty7)||IsEqual(set2[0],ty8)||IsEqual(set2[0],ty9)||IsEqual(set2[0],ty10)||IsEqual(set2[0],ty11)||IsEqual(set2[0],ty12)||IsEqual(set2[0],ty13)||IsEqual(set2[0],ty14);
+    bool t6=IsEqual(set2[1],ty1)||IsEqual(set2[1],ty2)||IsEqual(set2[1],ty3)||IsEqual(set2[1],ty4)||IsEqual(set2[1],ty5)||IsEqual(set2[1],ty6)||IsEqual(set2[1],ty7)||IsEqual(set2[1],ty8)||IsEqual(set2[1],ty9)||IsEqual(set2[1],ty10)||IsEqual(set2[1],ty11)||IsEqual(set2[1],ty12)||IsEqual(set2[1],ty13)||IsEqual(set2[1],ty14);
+    bool t7=IsEqual(set2[2],ty1)||IsEqual(set2[2],ty2)||IsEqual(set2[2],ty3)||IsEqual(set2[2],ty4)||IsEqual(set2[2],ty5)||IsEqual(set2[2],ty6)||IsEqual(set2[2],ty7)||IsEqual(set2[2],ty8)||IsEqual(set2[2],ty9)||IsEqual(set2[2],ty10)||IsEqual(set2[2],ty11)||IsEqual(set2[2],ty12)||IsEqual(set2[2],ty13)||IsEqual(set2[2],ty14);
+    bool t8;
+    if (Tilearray(set2)==4){t8=IsEqual(set2[3],ty1)||IsEqual(set2[3],ty2)||IsEqual(set2[3],ty3)||IsEqual(set2[3],ty4)||IsEqual(set2[3],ty5)||IsEqual(set2[3],ty6)||IsEqual(set2[3],ty7)||IsEqual(set2[3],ty8)||IsEqual(set2[3],ty9)||IsEqual(set2[3],ty10)||IsEqual(set2[3],ty11)||IsEqual(set2[3],ty12)||IsEqual(set2[3],ty13)||IsEqual(set2[3],ty14);}else{t8=true;}
+
+    bool t9=IsEqual(set3[0],ty1)||IsEqual(set3[0],ty2)||IsEqual(set3[0],ty3)||IsEqual(set3[0],ty4)||IsEqual(set3[0],ty5)||IsEqual(set3[0],ty6)||IsEqual(set3[0],ty7)||IsEqual(set3[0],ty8)||IsEqual(set3[0],ty9)||IsEqual(set3[0],ty10)||IsEqual(set3[0],ty11)||IsEqual(set3[0],ty12)||IsEqual(set3[0],ty13)||IsEqual(set3[0],ty14);
+    bool t10=IsEqual(set3[1],ty1)||IsEqual(set3[1],ty2)||IsEqual(set3[1],ty3)||IsEqual(set3[1],ty4)||IsEqual(set3[1],ty5)||IsEqual(set3[1],ty6)||IsEqual(set3[1],ty7)||IsEqual(set3[1],ty8)||IsEqual(set3[1],ty9)||IsEqual(set3[1],ty10)||IsEqual(set3[1],ty11)||IsEqual(set3[1],ty12)||IsEqual(set3[1],ty13)||IsEqual(set3[1],ty14);
+    bool t11=IsEqual(set3[2],ty1)||IsEqual(set3[2],ty2)||IsEqual(set3[2],ty3)||IsEqual(set3[2],ty4)||IsEqual(set3[2],ty5)||IsEqual(set3[2],ty6)||IsEqual(set3[2],ty7)||IsEqual(set3[2],ty8)||IsEqual(set3[2],ty9)||IsEqual(set3[2],ty10)||IsEqual(set3[2],ty11)||IsEqual(set3[2],ty12)||IsEqual(set3[2],ty13)||IsEqual(set3[2],ty14);
+    bool t12;
+    if (Tilearray(set3)==4){t12=IsEqual(set3[3],ty1)||IsEqual(set3[3],ty2)||IsEqual(set3[3],ty3)||IsEqual(set3[3],ty4)||IsEqual(set3[3],ty5)||IsEqual(set3[3],ty6)||IsEqual(set3[3],ty7)||IsEqual(set3[3],ty8)||IsEqual(set3[3],ty9)||IsEqual(set3[3],ty10)||IsEqual(set3[3],ty11)||IsEqual(set3[3],ty12)||IsEqual(set3[3],ty13)||IsEqual(set3[3],ty14);}else{t12=true;}
+
+    bool t13=IsEqual(pair[0],ty1)||IsEqual(pair[0],ty2)||IsEqual(pair[0],ty3)||IsEqual(pair[0],ty4)||IsEqual(pair[0],ty5)||IsEqual(pair[0],ty6)||IsEqual(pair[0],ty7)||IsEqual(pair[0],ty8)||IsEqual(pair[0],ty9)||IsEqual(pair[0],ty10)||IsEqual(pair[0],ty11)||IsEqual(pair[0],ty12)||IsEqual(pair[0],ty13)||IsEqual(pair[0],ty14);
+    bool t14=IsEqual(pair[1],ty1)||IsEqual(pair[1],ty2)||IsEqual(pair[1],ty3)||IsEqual(pair[1],ty4)||IsEqual(pair[1],ty5)||IsEqual(pair[1],ty6)||IsEqual(pair[1],ty7)||IsEqual(pair[1],ty8)||IsEqual(pair[1],ty9)||IsEqual(pair[1],ty10)||IsEqual(pair[1],ty11)||IsEqual(pair[1],ty12)||IsEqual(pair[1],ty13)||IsEqual(pair[1],ty14);
+
+    bool total=t1&&t2&&t3&&t4&&t5&&t6&&t7&&t8&&t9&&t10&&t11&&t12&&t13&&t14;
+    return total;
+}
+
+bool Hand36(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    bool a=(IsChow(set1,set1[0].color)&&IsChow(set2, set2[0].color)&&IsChow(set3,set3[0].color)&&(set1[0].number==set2[0].number)&&(set1[0].number==set3[0].number)&&(set1[0].color!=set2[0].color)&&(set1[0].color!=set3[0].color)&&(set2[0].color!=set3[0].color));
+    bool b=(IsChow(set1,set1[0].color)&&IsChow(set2, set2[0].color)&&IsChow(set4,set4[0].color)&&(set1[0].number==set2[0].number)&&(set1[0].number==set4[0].number)&&(set1[0].color!=set2[0].color)&&(set1[0].color!=set4[0].color)&&(set2[0].color!=set4[0].color));
+    bool c=(IsChow(set1,set1[0].color)&&IsChow(set3, set3[0].color)&&IsChow(set4,set4[0].color)&&(set1[0].number==set3[0].number)&&(set1[0].number==set4[0].number)&&(set1[0].color!=set3[0].color)&&(set1[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color));
+    bool d=(IsChow(set2,set2[0].color)&&IsChow(set3, set3[0].color)&&IsChow(set4,set4[0].color)&&(set2[0].number==set3[0].number)&&(set2[0].number==set4[0].number)&&(set2[0].color!=set3[0].color)&&(set2[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color));
+    
+    bool total=a||b||c||d;
+    return total;
+}
+
+bool Hand37(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
+{
+    int n1=set1[0].number;
+    int n2=set2[0].number;
+    int n3=set3[0].number;
+    int n4=set4[0].number;
+
+    if (n1 > n3) {std::swap(n1, n3);}
+    if (n1 > n2) {std::swap(n1, n2);}
+    if (n2 > n3) {std::swap(n2, n3);}
+
+    bool a=((IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color))&&(IsPung(set2, set2[0].color)||IsKong(set2, set2[0].color))&&(IsPung(set3,set3[0].color)||IsKong(set3,set3[0].color))&&(set1[0].color!=set2[0].color)&&(set1[0].color!=set3[0].color)&&(set2[0].color!=set3[0].color));
+    bool b=((IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color))&&(IsPung(set2, set2[0].color)||IsKong(set2, set2[0].color))&&(IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&(set1[0].color!=set2[0].color)&&(set1[0].color!=set4[0].color)&&(set2[0].color!=set4[0].color));
+    bool c=((IsPung(set1,set1[0].color)||IsKong(set1,set1[0].color))&&(IsPung(set3, set3[0].color)||IsKong(set3, set3[0].color))&&(IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&(set1[0].color!=set3[0].color)&&(set1[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color));
+    bool d=((IsPung(set2,set2[0].color)||IsKong(set2,set2[0].color))&&(IsPung(set3, set3[0].color)||IsKong(set3, set3[0].color))&&(IsPung(set4,set4[0].color)||IsKong(set4,set4[0].color))&&(set2[0].color!=set3[0].color)&&(set2[0].color!=set4[0].color)&&(set3[0].color!=set4[0].color));
+    
+    bool a1=0,b1=0,c1=0,d1=0;
+    if (a==true)
+    {
+        int n1=set1[0].number; int n2=set2[0].number; int n3=set3[0].number;
+        if (n1 > n3) {std::swap(n1, n3);}
+        if (n1 > n2) {std::swap(n1, n2);}
+        if (n2 > n3) {std::swap(n2, n3);}
+
+        a1=(n1==(n2-1))&&(n2==(n3-1));
+    }
+    if (b==true)
+    {
+        int m1=set1[0].number; int m2=set2[0].number; int m3=set4[0].number;
+        if (m1 > m3) {std::swap(m1, m3);}
+        if (m1 > m2) {std::swap(m1, m2);}
+        if (m2 > m3) {std::swap(m2, m3);}
+
+        b1=(m1==(m2-1))&&(m2==(m3-1));
+    }
+    if (c==true)
+    {
+        int o1=set1[0].number; int o2=set3[0].number; int o3=set4[0].number;
+        if (o1 > o3) {std::swap(o1, o3);}
+        if (o1 > o2) {std::swap(o1, o2);}
+        if (o2 > o3) {std::swap(o2, o3);}
+
+        c1=(o1==(o2-1))&&(o2==(o3-1));
+    }
+    if (d==true)
+    {
+        int p1=set2[0].number; int p2=set3[0].number; int p3=set4[0].number;
+        if (p1 > p3) {std::swap(p1, p3);}
+        if (p1 > p2) {std::swap(p1, p2);}
+        if (p2 > p3) {std::swap(p2, p3);}
+
+        d1=(p1==(p2-1))&&(p2==(p3-1));
+    }
+
+    bool total=a1||b1||c1||d1;
+    return total;
+}
+
+bool Hand38(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool con2, std::vector <Tile> set3, bool con3, std::vector <Tile> set4, bool con4)
+{
+    bool b=IsKong(set1, set1[0].color) && IsKong(set2,set2[0].color)&&con1&&con2;
+    
+    bool d=IsKong(set1, set1[0].color) && IsKong(set3,set3[0].color)&&con1&&con3;
+    
+    bool f=IsKong(set1, set1[0].color) && IsKong(set4,set4[0].color)&&con1&&con4;
+    
+    bool h=IsKong(set2, set2[0].color) && IsKong(set3,set3[0].color)&&con2&&con3;
+    
+    bool j=IsKong(set2, set2[0].color) && IsKong(set4,set4[0].color)&&con2&&con4;
+
+    bool l=IsKong(set3, set3[0].color) && IsKong(set4,set4[0].color)&&con3&&con4;
+
+    bool total= b||d||f||h||j||l;
+    return total;
 }
 
 int main ()
@@ -894,23 +1000,23 @@ int main ()
 
     bool selfdraw=false; //won by selfdraw is true, discard pile false
     
-    Tile set1t1 (Bamboo4), set1t2 (Bamboo5), set1t3 (Bamboo6), set1t4 (Bamboo4);
+    Tile set1t1 (Bamboo5), set1t2 (Bamboo5), set1t3 (Bamboo5), set1t4 (Bamboo5);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
     bool con1=true;
 
-    Tile set2t1 (Circle2), set2t2 (Circle2), set2t3 (Circle2), set2t4 (Character1);
+    Tile set2t1 (Bamboo3), set2t2 (Bamboo4), set2t3 (Bamboo5), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
-    Tile set3t1 (Character7), set3t2 (Character8), set3t3 (Character9), set3t4 (Character5);
-    std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
+    Tile set3t1 (Circle4), set3t2 (Circle4), set3t3 (Circle4), set3t4 (Circle4);
+    std::vector<Tile> vec3 = {set3t1, set3t2, set3t3, set3t4};
     bool con3=true;
     
-    Tile set4t1 (Character1), set4t2 (Character2), set4t3 (Character3), set4t4 (WindEast);
-    std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
+    Tile set4t1 (Circle3), set4t2 (Circle3), set4t3 (Circle3), set4t4 (Circle3);
+    std::vector<Tile> vec4 = {set4t1, set4t2, set4t3, set4t4};
     bool con4=true;
     
-    Tile pair_t1 (WindNorth), pair_t2 (WindNorth);
+    Tile pair_t1 (DragonWhite), pair_t2 (DragonWhite);
     std::vector<Tile> pair = {pair_t1, pair_t2};
     bool conp=true;
 
@@ -1004,6 +1110,15 @@ int main ()
 
     bool h35=Hand35(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand35: Reversible Tiles?"<<h35<<"\n";
+
+    bool h36=Hand36(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand36: Mixed Triple Chow?"<<h36<<"\n";
+
+    bool h37=Hand37(vec1, vec2, vec3, vec4);
+    std::cout<<"Hand37: Mixed Shifted Pung?"<<h37<<"\n";
+
+    bool h38=Hand38(vec1, con1, vec2, con2, vec3, con3, vec4, con4);
+    std::cout<<"Hand38: Two Concealed Kongs?"<<h38<<"\n";
 
     return 0; 
 }
