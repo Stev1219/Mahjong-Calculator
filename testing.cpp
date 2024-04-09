@@ -138,6 +138,41 @@ bool IsEqual(Tile sample, Tile check)
     return total;
 }
 
+bool OnlySingles(std::vector <Tile> full)
+{
+    bool a1=IsEqual(full[0], full[1]);
+    bool a2=IsEqual(full[0], full[2]); bool b2=IsEqual(full[1], full[2]);
+    bool a3=IsEqual(full[0], full[3]); bool b3=IsEqual(full[1], full[3]); bool c3=IsEqual(full[2], full[3]);
+    bool a4=IsEqual(full[0], full[4]); bool b4=IsEqual(full[1], full[4]); bool c4=IsEqual(full[2], full[4]); bool d4=IsEqual(full[3], full[4]);
+    bool a5=IsEqual(full[0], full[5]); bool b5=IsEqual(full[1], full[5]); bool c5=IsEqual(full[2], full[5]); bool d5=IsEqual(full[3], full[5]); bool e5=IsEqual(full[4], full[5]);
+    bool a6=IsEqual(full[0], full[6]); bool b6=IsEqual(full[1], full[6]); bool c6=IsEqual(full[2], full[6]); bool d6=IsEqual(full[3], full[6]); bool e6=IsEqual(full[4], full[6]); bool f6=IsEqual(full[5], full[6]); 
+    bool a7=IsEqual(full[0], full[7]); bool b7=IsEqual(full[1], full[7]); bool c7=IsEqual(full[2], full[7]); bool d7=IsEqual(full[3], full[7]); bool e7=IsEqual(full[4], full[7]); bool f7=IsEqual(full[5], full[7]); bool g7=IsEqual(full[6], full[7]);  
+    bool a8=IsEqual(full[0], full[8]); bool b8=IsEqual(full[1], full[8]); bool c8=IsEqual(full[2], full[8]); bool d8=IsEqual(full[3], full[8]); bool e8=IsEqual(full[4], full[8]); bool f8=IsEqual(full[5], full[8]); bool g8=IsEqual(full[6], full[8]); bool h8=IsEqual(full[7], full[8]);
+    bool a9=IsEqual(full[0], full[9]); bool b9=IsEqual(full[1], full[9]); bool c9=IsEqual(full[2], full[9]); bool d9=IsEqual(full[3], full[9]); bool e9=IsEqual(full[4], full[9]); bool f9=IsEqual(full[5], full[9]); bool g9=IsEqual(full[6], full[9]); bool h9=IsEqual(full[7], full[9]); bool i9=IsEqual(full[8], full[9]);
+    bool a10=IsEqual(full[0], full[10]); bool b10=IsEqual(full[1], full[10]); bool c10=IsEqual(full[2], full[10]); bool d10=IsEqual(full[3], full[10]); bool e10=IsEqual(full[4], full[10]); bool f10=IsEqual(full[5], full[10]); bool g10=IsEqual(full[6], full[10]); bool h10=IsEqual(full[7], full[10]); bool i10=IsEqual(full[8], full[10]); bool j10=IsEqual(full[9], full[10]);
+    bool a11=IsEqual(full[0], full[11]); bool b11=IsEqual(full[1], full[11]); bool c11=IsEqual(full[2], full[11]); bool d11=IsEqual(full[3], full[11]); bool e11=IsEqual(full[4], full[11]); bool f11=IsEqual(full[5], full[11]); bool g11=IsEqual(full[6], full[11]); bool h11=IsEqual(full[7], full[11]); bool i11=IsEqual(full[8], full[11]); bool j11=IsEqual(full[9], full[11]); bool k11=IsEqual(full[10], full[11]);
+    bool a12=IsEqual(full[0], full[12]); bool b12=IsEqual(full[1], full[12]); bool c12=IsEqual(full[2], full[12]); bool d12=IsEqual(full[3], full[12]); bool e12=IsEqual(full[4], full[12]); bool f12=IsEqual(full[5], full[12]); bool g12=IsEqual(full[6], full[12]); bool h12=IsEqual(full[7], full[12]); bool i12=IsEqual(full[8], full[12]); bool j12=IsEqual(full[9], full[12]); bool k12=IsEqual(full[10], full[12]); bool l12=IsEqual(full[11], full[12]);
+    bool a13=IsEqual(full[0], full[13]); bool b13=IsEqual(full[1], full[13]); bool c13=IsEqual(full[2], full[13]); bool d13=IsEqual(full[3], full[13]); bool e13=IsEqual(full[4], full[13]); bool f13=IsEqual(full[5], full[13]); bool g13=IsEqual(full[6], full[13]); bool h13=IsEqual(full[7], full[13]); bool i13=IsEqual(full[8], full[13]); bool j13=IsEqual(full[9], full[13]); bool k13=IsEqual(full[10], full[13]); bool l13=IsEqual(full[11], full[13]); bool m13=IsEqual(full[12], full[13]);
+
+    bool ta=a1||a2||a3||a4||a5||a6||a7||a8||a9||a10||a11||a12||a13;
+    bool tb=b2||b3||b4||b5||b6||b7||b8||b9||b10||b11||b12||b13;
+    bool tc=c3||c4||c5||c6||c7||c8||c9||c10||c11||c12||c13;
+    bool td=d4||d5||d6||d7||d8||d9||d10||d11||d12||d13;
+    bool te=e5||e6||e7||e8||e9||e10||e11||e12||e13;
+    bool tf=f6||f7||f8||f9||f10||f11||f12||f13;
+    bool tg=g7||g8||g9||g10||g11||g12||g13;
+    bool th=h8||h9||h10||h11||h12||h13;
+    bool ti=i9||i10||i11||i12||i13;
+    bool tj=j10||j11||j12||j13;
+    bool tk=k11||k12||k13;
+    bool tl=l12||l13;
+    bool total=ta||tb||tc||td||te||tf||tg||th||ti||tj||tk||tl||m13;
+
+    bool result=!(total);
+
+    return result;
+}
+
 bool Hand01 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
 {
     bool a=(set1[0].number==set2[0].number) && (set1[1].number==set2[1].number) && (set1[2].number==set2[2].number) && (set1[0].color==set2[0].color) && IsChow(set1, set1[0].color);
@@ -991,6 +1026,12 @@ bool Hand38(std::vector <Tile> set1, bool con1, std::vector <Tile> set2, bool co
     return total;
 }
 
+bool Hand44(std::vector <Tile> full)
+{
+    bool a=OnlySingles(full);
+    return a;
+}
+
 int main ()
 {
     Wind seat;
@@ -1019,6 +1060,12 @@ int main ()
     Tile pair_t1 (DragonWhite), pair_t2 (DragonWhite);
     std::vector<Tile> pair = {pair_t1, pair_t2};
     bool conp=true;
+
+    Tile tot_t1 (Bamboo1), tot_t2 (Bamboo2), tot_t3 (Bamboo3), tot_t4 (Bamboo4);
+    Tile tot_t5 (Bamboo5), tot_t6 (Bamboo6), tot_t7 (Bamboo7), tot_t8 (Bamboo8);
+    Tile tot_t9 (Bamboo9), tot_t10 (Character1), tot_t11 (Character2), tot_t12 (Character3);
+    Tile tot_t13 (WindEast), tot_t14 (WindNorth);
+    std::vector<Tile> full = {tot_t1, tot_t2, tot_t3, tot_t4, tot_t5, tot_t6, tot_t7, tot_t8, tot_t9, tot_t10, tot_t11, tot_t12, tot_t13, tot_t14};
 
     bool h01=Hand01(vec1, vec2, vec3, vec4);
     std::cout<<"Hand01: Pure Double Chow?"<<h01<<"\n";
@@ -1086,7 +1133,8 @@ int main ()
     bool h26=Hand26(vec1, vec2, vec3, vec4);
     std::cout<<"Hand26: Two Melded Kongs?"<<h26<<"\n";
 
-    //skip 27 until understand last of its kind
+    //Ask user if everyone knew that it was the last tile of its kind. Add 4 points if true.
+    //for Hand 27.
 
     bool h28=Hand28(vec1, vec2, vec3, vec4);
     std::cout<<"Hand28: All Pungs?"<<h28<<"\n";
@@ -1119,6 +1167,23 @@ int main ()
 
     bool h38=Hand38(vec1, con1, vec2, con2, vec3, con3, vec4, con4);
     std::cout<<"Hand38: Two Concealed Kongs?"<<h38<<"\n";
+
+    //Ask the user if they one in some way with the last tile on the wall add 8 points
+    //This is for Hand39 and 40
+
+    //Ask the user if they one by picking up from the dead wall when a Kong was declared. add 8 points
+    //For hand 41
+
+    //Ask the user if they beat out someone about to declare a kong award 8 points.
+    //for hand 42
+
+    //If no other hand is met then award 8 points for finishing a mahjong
+    //for Hand 43 called Chicken Hand ASK at the end of evaluation.
+
+    bool h44=Hand44(full);
+    std::cout<<"Hand 44: Less Honors and Knitted Tiles?"<<h44<<"\n";
+
+
 
     return 0; 
 }
