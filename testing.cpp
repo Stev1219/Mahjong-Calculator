@@ -173,6 +173,55 @@ bool OnlySingles(std::vector <Tile> full)
     return result;
 }
 
+std::vector <Tile> reorg(std::vector <Tile> full)
+{
+    std::vector <Tile> sorted;
+    int size=Tilearray(full);
+
+    int i;
+
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character1)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character2)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character3)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character4)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character5)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character6)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character7)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character8)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Character9)) { sorted.push_back(full[i]);}}
+
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle1)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle2)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle3)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle4)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle5)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle6)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle7)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle8)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Circle9)) { sorted.push_back(full[i]);}}
+
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo1)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo2)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo3)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo4)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo5)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo6)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo7)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo8)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], Bamboo9)) { sorted.push_back(full[i]);}}
+
+    for (i=0; i<size; i++) { if (IsEqual(full[i], WindEast)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], WindSouth)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], WindWest)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], WindNorth)) { sorted.push_back(full[i]);}}
+
+    for (i=0; i<size; i++) { if (IsEqual(full[i], DragonRed)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], DragonWhite)) { sorted.push_back(full[i]);}}
+    for (i=0; i<size; i++) { if (IsEqual(full[i], DragonGreen)) { sorted.push_back(full[i]);}}
+
+    return sorted;
+}
+
 bool Hand01 (std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4)
 {
     bool a=(set1[0].number==set2[0].number) && (set1[1].number==set2[1].number) && (set1[2].number==set2[2].number) && (set1[0].color==set2[0].color) && IsChow(set1, set1[0].color);
@@ -634,13 +683,14 @@ bool Hand23(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
 
 bool Hand24(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
 {
-    bool a=(set1[0].color!=Color::None)&&(set2[0].color!=Color::None)&&(set3[0].color!=Color::None)&&(set4[0].color!=Color::None)&&(pair[0].color!=Color::None);
-    bool b=(set1[0].number==1)||(set2[0].number==1)||(set3[0].number==1)||(set4[0].number==1)||(pair[0].number==1);
-    bool c=(set1[2].number!=9)&&(set2[2].number!=9)&&(set3[2].number!=9)&&(set4[2].number!=9)&&(pair[2].number!=9);
-    bool d=(set1[3].number!=9)&&(set2[3].number!=9)&&(set3[3].number!=9)&&(set4[3].number!=9)&&(pair[3].number!=9);
+    bool a=(set1[0].color==Color::None)||(set1[0].number==1)||(set1[2].number==9);
+    bool b=(set2[0].color==Color::None)||(set2[0].number==1)||(set2[2].number==9);
+    bool c=(set3[0].color==Color::None)||(set3[0].number==1)||(set3[2].number==9);
+    bool d=(set4[0].color==Color::None)||(set4[0].number==1)||(set4[2].number==9);
+    bool e=(pair[0].color==Color::None)||(pair[0].number==1)||(pair[1].number==9);
 
-    bool total=a&&b&&(c||d);
-    bool result = !total;
+    bool result=a&&b&&c&&d&&e;
+
     return result;    
 }
 
@@ -1041,31 +1091,34 @@ int main ()
 
     bool selfdraw=true; //won by selfdraw is true, discard pile false
     
-    Tile set1t1 (Character6), set1t2 (Character7), set1t3 (Character8), set1t4 (WindWest);
+    Tile set1t1 (Character9), set1t2 (Character9), set1t3 (Character9), set1t4 (WindWest);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
     bool con1=false;
 
-    Tile set2t1 (Circle2), set2t2 (Circle2), set2t3 (Circle2), set2t4 (Character1);
+    Tile set2t1 (Circle1), set2t2 (Circle1), set2t3 (Circle1), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
-    Tile set3t1 (Circle3), set3t2 (Circle4), set3t3 (Circle5), set3t4 (Circle4);
+    Tile set3t1 (Circle7), set3t2 (Circle8), set3t3 (Circle9), set3t4 (Circle4);
     std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     bool con3=true;
     
-    Tile set4t1 (Bamboo5), set4t2 (Bamboo5), set4t3 (Bamboo5), set4t4 (Circle3);
+    Tile set4t1 (Bamboo1), set4t2 (Bamboo2), set4t3 (Bamboo3), set4t4 (Circle3);
     std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
-    Tile pair_t1 (Circle1), pair_t2 (Circle1);
+    Tile pair_t1 (Circle9), pair_t2 (Circle9);
     std::vector<Tile> pair = {pair_t1, pair_t2};
     bool conp=true;
 
-    Tile tot_t1 (Bamboo1), tot_t2 (Bamboo2), tot_t3 (Bamboo3), tot_t4 (Bamboo4);
-    Tile tot_t5 (Bamboo5), tot_t6 (Bamboo6), tot_t7 (Bamboo7), tot_t8 (Bamboo8);
-    Tile tot_t9 (Bamboo9), tot_t10 (Character1), tot_t11 (Character2), tot_t12 (Character3);
+    Tile tot_t1 (Bamboo1), tot_t2 (Bamboo1), tot_t3 (Bamboo2), tot_t4 (Bamboo2);
+    Tile tot_t5 (Bamboo7), tot_t6 (Bamboo7), tot_t7 (Bamboo9), tot_t8 (Bamboo9);
+    Tile tot_t9 (Circle1), tot_t10 (Circle1), tot_t11 (Circle2), tot_t12 (Circle2);
     Tile tot_t13 (WindEast), tot_t14 (WindNorth);
-    std::vector<Tile> full = {tot_t1, tot_t2, tot_t3, tot_t4, tot_t5, tot_t6, tot_t7, tot_t8, tot_t9, tot_t10, tot_t11, tot_t12, tot_t13, tot_t14};
+    std::vector<Tile> mixed = {tot_t1, tot_t2, tot_t3, tot_t4, tot_t5, tot_t6, tot_t7, tot_t8, tot_t9, tot_t10, tot_t11, tot_t12, tot_t13, tot_t14};
+    
+    std::vector<Tile> full;
+    full=reorg(mixed);
 
     bool h01=Hand01(vec1, vec2, vec3, vec4);
     std::cout<<"Hand01: Pure Double Chow?"<<h01<<"\n";
