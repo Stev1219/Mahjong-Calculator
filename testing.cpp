@@ -635,7 +635,7 @@ bool Hand23(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile>
 bool Hand24(std::vector <Tile> set1, std::vector <Tile> set2, std::vector <Tile> set3, std::vector <Tile> set4, std::vector <Tile> pair)
 {
     bool a=(set1[0].color!=Color::None)&&(set2[0].color!=Color::None)&&(set3[0].color!=Color::None)&&(set4[0].color!=Color::None)&&(pair[0].color!=Color::None);
-    bool b=(set1[0].number!=1)&&(set2[0].number!=1)&&(set3[0].number!=1)&&(set4[0].number!=1)&&(pair[0].number!=1);
+    bool b=(set1[0].number==1)||(set2[0].number==1)||(set3[0].number==1)||(set4[0].number==1)||(pair[0].number==1);
     bool c=(set1[2].number!=9)&&(set2[2].number!=9)&&(set3[2].number!=9)&&(set4[2].number!=9)&&(pair[2].number!=9);
     bool d=(set1[3].number!=9)&&(set2[3].number!=9)&&(set3[3].number!=9)&&(set4[3].number!=9)&&(pair[3].number!=9);
 
@@ -1036,28 +1036,28 @@ int main ()
 {
     Wind seat;
     Wind prevail;
-    prevail=Wind::East;
+    prevail=Wind::South;
     seat=Wind::East;
 
-    bool selfdraw=false; //won by selfdraw is true, discard pile false
+    bool selfdraw=true; //won by selfdraw is true, discard pile false
     
-    Tile set1t1 (Bamboo5), set1t2 (Bamboo5), set1t3 (Bamboo5), set1t4 (Bamboo5);
+    Tile set1t1 (Character6), set1t2 (Character7), set1t3 (Character8), set1t4 (WindWest);
     std::vector<Tile> vec1 = {set1t1, set1t2, set1t3};
-    bool con1=true;
+    bool con1=false;
 
-    Tile set2t1 (Bamboo3), set2t2 (Bamboo4), set2t3 (Bamboo5), set2t4 (Character1);
+    Tile set2t1 (Circle2), set2t2 (Circle2), set2t3 (Circle2), set2t4 (Character1);
     std::vector<Tile> vec2 = {set2t1, set2t2, set2t3};
     bool con2=true;
 
-    Tile set3t1 (Circle4), set3t2 (Circle4), set3t3 (Circle4), set3t4 (Circle4);
-    std::vector<Tile> vec3 = {set3t1, set3t2, set3t3, set3t4};
+    Tile set3t1 (Circle3), set3t2 (Circle4), set3t3 (Circle5), set3t4 (Circle4);
+    std::vector<Tile> vec3 = {set3t1, set3t2, set3t3};
     bool con3=true;
     
-    Tile set4t1 (Circle3), set4t2 (Circle3), set4t3 (Circle3), set4t4 (Circle3);
-    std::vector<Tile> vec4 = {set4t1, set4t2, set4t3, set4t4};
+    Tile set4t1 (Bamboo5), set4t2 (Bamboo5), set4t3 (Bamboo5), set4t4 (Circle3);
+    std::vector<Tile> vec4 = {set4t1, set4t2, set4t3};
     bool con4=true;
     
-    Tile pair_t1 (DragonWhite), pair_t2 (DragonWhite);
+    Tile pair_t1 (Circle1), pair_t2 (Circle1);
     std::vector<Tile> pair = {pair_t1, pair_t2};
     bool conp=true;
 
@@ -1090,6 +1090,9 @@ int main ()
 
     bool h08=Hand08(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand08: No Honors?"<<h08<<"\n";
+
+    bool h09=selfdraw;
+    std::cout<<"Hand09: Self Draw?"<<h09<<"\n";
  
     //Hand09 and 10 add point to player if they self draw or drew flowers in the game
     //Skip 11-13
@@ -1124,6 +1127,7 @@ int main ()
     bool h23=Hand23(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand23: All simples?"<<h23<<"\n";
 
+    //Did not work in practice look at this !!!
     bool h24=Hand24(vec1, vec2, vec3, vec4, pair);
     std::cout<<"Hand24: Outside Hand?"<<h24<<"\n";
 
